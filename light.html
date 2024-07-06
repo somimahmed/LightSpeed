@@ -1,0 +1,578 @@
+<!--created by somim-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Realtime Light Speed</title>
+      <style>
+        *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body {
+
+    min-height:100vh;
+}
+
+.main{
+    background:linear-gradient(45deg,#529fed,#619bbb);
+    height:100vh;width:100%;
+    display:flex;
+    align-item:center ;
+    justify-content:center ;
+    position:relative ;
+    flex-direction:column;
+    background:#005029;
+    overflow:hidden ;
+    /*background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TIdDG3JttRcv7U78d5xBpFJ2VUoRZOvl8w&usqp=CAU");*/
+}
+   
+
+.m{
+    height:70px;
+    width:70px;
+    border-radius:50%; background:url("data:image/jpeg;base64,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");
+    position: absolute ;
+    text-align:center ;
+    background-size:cover;
+    box-shadow:0px 0px 5px rgba(255,255,255,.7),0px 0px 15px rgba(255,255,255,.7),0px 0px 25px rgba(255,255,255,.7);
+    padding-top: 25px;
+    font-weight:700;
+    font-size:16px;
+    top:70px;
+    left:143px;
+    color:#fff;
+    text-shadow:0px 0px 9px rgba(5,2,0,.37);
+}
+
+
+.earth{
+    height:90px;
+    width:90px;
+    border-radius:50%;
+     background:url("https://i.pinimg.com/originals/11/3d/93/113d937e06fcdd28172766336578c87d.png");
+    position: absolute ;
+    background-size:cover;
+    grey-scale:.1;
+    text-align:center ;
+    box-shadow:0px 0px 15px rgba(5,55,55,.7);
+    padding-top: 35px;
+    font-weight:700;
+    font-size:18px;
+    bottom:40px;
+    left:130px;
+    color:#fff;
+    text-shadow:0px 0px 9px rgba(5,222,255,.5);
+}
+
+
+.light{
+    height:10px;
+    width:10px;
+    border-radius:8px; background:#eed;
+    position: absolute ;
+    text-align:center ;
+    font-weight:700;
+    font-size:18px;
+    bottom:127px;
+    left:170px;
+    z-index:5;
+    animation: linear infinite ;
+    text-shadow:0px 0px 9px rgba(0,0,0,.5) ;
+    box-shadow:0px 0px 9px rgba(255,225,250,.9),0px 0px 15px rgba(255,255,255,.5),0px 0px 25px rgba(255,255,255,.5);
+}
+
+@keyframes speed{
+    0%{
+        bottom:127px;
+    }
+    100%{
+        bottom:475px
+    }
+}
+
+/*.light::after{
+    content:"Light ( Time : 1.3s ) ";
+    font-size:12px;
+    margin-left:15px;
+    color:#fff;
+    width:120px;
+    position:absolute ;
+    margin-bottom:5px;
+    font-weight:700;
+}
+
+.light::before{
+    content:" Speed 299,792 km/s ";
+    font-size:12px;
+    color:#fff;
+    width:120px;
+    position:absolute ;
+    margin-bottom:5px;
+    font-weight:700;
+    left:-135px;
+}
+*/
+p{
+    width:100%;
+    text-align:center ;
+    top:170px;
+    position:absolute ;
+    color:#eee;
+    font-size:14px;
+    opacity:.34;
+    font-weight:550;
+}
+
+.speed{
+    display:inline-block ;
+    font-size:10px;
+    width:140px;
+    color:white;
+    font-weight:450;
+    letter-spacing:.5px;
+    position:absolute ;
+    color:#bbe414;
+}
+
+.distance{
+    display:inline-block ;
+    font-size:10px;
+    width:150px;
+    color:#bbe414;
+    position:absolute ;
+    left:-155px;
+    font-weight:550;
+    letter-spacing:.5px;
+}
+
+
+
+
+
+.name{
+    width:150px;
+    position:absolute ;
+    font-size:10px;
+    font-weight:500;
+    left:70px;
+    letter-spacing:.3px;
+    color:#bbe414;
+    color:#00f414;
+}
+
+.sec{
+    display:inline-block ;
+    width:150px;
+    position:absolute ;
+    font-size:11px;
+    font-weight:500;
+    margin-left:-180px;
+    letter-spacing:.3px;
+    color:#00f414;
+}
+
+.pname{
+    position:absolute ;
+    display:block;
+    text-align:center ;
+    width:100%;
+    color:#eee475;
+    font-weight:500;
+    font-size:14px;
+    text-shadow:0px 0px 8px rgba(0,0,0,.7);
+}
+
+
+.opt{
+    height:35px;
+    width:90px;
+    padding:4px;
+    padding-left:6px;
+    position:absolute ;
+    border-radius:10px;top:10px;
+    background:#fbfbff;
+    color:#fffaee;
+    font-size:14px;
+    font-weight:600;
+    appearance:color:;;
+    box-shadow:0px 0px 8px rgba(0,0,0,.2);
+    outline:none;
+    text-shadow:0px 0px 8px rgba(0,0,0,.4);
+    left:20px;
+    border:none;
+    background:#278377;
+    border-radius:7px;
+}
+h3{
+    top:10px;
+    position:absolute ;
+    right:20px;
+    color:#eeedae;
+    background:#278377;
+    padding:7px;
+    border-radius:7px;
+    box-shadow:0px 0px 8px rgba(0,0,0,.52);
+}
+
+.distinfo{
+    position:absolute ;
+    top:309px;
+    font-size:14px;
+    left:10px;
+    text-align:left;
+    letter-spacing:.7px;
+    color:#919385;
+    opacity:.7;
+}
+
+.timeinfo{
+    position:absolute ;
+    top:309px;
+    font-size:14px;
+    right:10px;
+    text-align:right;
+    letter-spacing:.7px;
+    color:#919385;
+    opacity:.7;
+}
+.reset{
+    position:absolute ;
+    width:90px;
+    bottom:200px;
+    height:40px;
+    border:none;
+    border-radius:8px; background:linear-gradient(45deg,#ffb28e,#af000d);
+    color:#eee;
+    left:130px;
+    z-index:1;
+    font-size:15px;
+    font-weight:600;
+    box-shadow:0px 0px 15px rgba(0,0,0,.52);
+    text-shadow:0px 0px 7px rgba(0,0,0,.52);
+    opacity:.7;
+    display:none;
+    
+
+}
+.invis{
+    position:absolute ;
+    width:200px;
+    height:209px;
+    background:red;
+    left:70px;
+    opacity:0;
+}
+@keyframes anim{
+    0%{
+        opacity:1;
+        display:block;
+    }
+    80%{
+        opacity:1;
+        display:block;
+    }
+    100%{
+        opacity:0;
+        display:none;
+    }
+    
+}
+
+      </style>
+    </head>
+    <body>
+    <div class="main">
+        <h3> REALTIME LIGHT SPEED</h3>
+    <select class="opt" >
+          <option value="mo">Select</option>
+        <option value="moon">Moon</option>
+        <option value="mars">Mars</option>
+        <option value="sun">Sun</option>
+        <option value="mercury">Mercury</option>
+        <option value="pluto">Pluto</option>
+    <option value="jupitar">Jupitar</option>
+    </select>    
+    <p class="info">This the real speed of light between earth and planets</p>
+        <div class="m">
+   <span class="pname">MOON</span>
+   <span class="sec">Take 1.3s to reach</span> 
+   <span class="name">Moon</span>        
+        </div>
+  <p class="distinfo">Distance</p>
+  <p class="timeinfo">Time</p>
+        
+          <div class="earth">Earth</div>
+        
+        <div class="light">
+        <span class="speed">LIGHT</span>
+         <span class="distance">Distance</span>   
+        </div>
+     <!--   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4hQ3XHus8oUlj1b01lhkt8Zr7tatqz0U1fQdxjl6tciIANokmW2Aqkm8&s=10">
+        -->
+        
+        
+     <div class="invis"></div>
+        
+     <button class="reset">Reset</button> 
+        
+    </div>
+
+      <script>
+        window.onload=()=>{
+
+var val = document.querySelector(".opt");
+var distinfo = document.querySelector(".distinfo");
+
+var timeinfo = document.querySelector(".timeinfo");
+
+var seco = document.querySelector(".sec");
+var m = document.querySelector(".pname");
+
+var planet = document.querySelector(".m");
+var invis= document.querySelector(".invis");
+var reset= document.querySelector(".reset");
+    
+var name = document.querySelector(".name");    
+var light = document.querySelector(".light");    
+var speed = document.querySelector(".speed");    
+var distance = document.querySelector(".distance");
+    
+//start
+var mars = 97418173;
+var moon =384400;
+var mercury =94738000;
+var pluto = 5720000000;
+var jupitar = 617730000;
+var sun = 148550000;
+
+var point = 0;
+
+    
+val.oninput=()=>{
+  
+if(val.value=="moon"){
+     planet.style.background="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfNnzn26nhZ_RMb6U0_RjFVlTRvUT-03Eeyg&usqp=CAU')";
+    planet.style.backgroundSize="cover";
+    light.style.animationName="speed";
+    speed.innerHTML ="LIGHT 300000 KM/ S"
+    light.style.animationDuration="1.3s";
+    point=1;
+    let secpoint = 1.3;
+    m.innerHTML ="MOON";
+    seco.innerHTML ="Takes 1.3s to reach";
+    name.innerHTML ="384400 Km from earth"
+    if(point==1){
+   let inter= setInterval(()=>{
+         moon -= 6008;  
+          distance.innerHTML=moon +" KM HAVE"; 
+          distinfo.innerHTML=moon +" KM HAVE"; 
+          if(moon<0){
+            //distance.innerHTML="REACHED"
+            moon =384400
+        }
+         },20)
+       setTimeout(()=>{
+           clearInterval(inter)
+           },1300)
+      setInterval(()=>{
+          secpoint -=0.01;
+          timeinfo.innerHTML =secpoint.toFixed(1) + " S REMAINING";
+          if(secpoint<0){
+            //distance.innerHTML="REACHED"
+             timeinfo.innerHTML=0;
+        }
+      },11)     
+         
+    }
+    
+    
+}
+else if(val.value=="mars"){
+    light.style.animationName="speed";
+    speed.innerHTML ="LIGHT 300000 KM/ S";
+    light.style.animationDuration="182s";
+    m.innerHTML="MARS";
+    planet.style.background="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF5Clm-U340H37t6v0jGF75SRHWTE2RalEkw&usqp=CAU')";
+    planet.style.backgroundSize="cover";
+    point=2;
+    secpoint = 182;
+    seco.innerHTML ="Takes 182s to reach";
+    name.innerHTML ="97418173 Km from earth"
+    if(point==2){
+       setInterval(()=>{
+         mars -= 2008;  
+     distance.innerHTML=mars +" KM HAVE"; 
+     distinfo.innerHTML=mars +" KM HAVE"; 
+       },1.2)
+       setInterval(()=>{
+          secpoint -=0.01;
+          timeinfo.innerHTML =secpoint.toFixed(2 ) + " S REMAINING";
+          if(secpoint<0){
+            distance.innerHTML="REACHED"
+             timeinfo.innerHTML=0;
+        }
+      },11)     
+       
+       }}
+       
+  else if(val.value=="mercury"){
+    light.style.animationName="speed";
+    speed.innerHTML ="LIGHT 300000 KM/ S";
+    light.style.animationDuration="258s";
+    m.innerHTML="MERCURY";
+    planet.style.background="url('https://upload.wikimedia.org/wikipedia/commons/b/b9/3D_Mercury.png')";
+    planet.style.backgroundSize="cover";
+    point=3;
+      secpoint = 258;
+    seco.innerHTML ="Takes 258s to reach";
+    name.innerHTML ="203319473 Km from earth"
+    if(point==3){
+       setInterval(()=>{
+         mercury -= 3008;  
+          distance.innerHTML=mercury+" KM NEED"; 
+    distinfo.innerHTML=mercury+" KM HAVE"; 
+        
+       },1.2)
+       setInterval(()=>{
+          secpoint -=0.01;
+          timeinfo.innerHTML =secpoint.toFixed(1) + " S Left";
+          if(secpoint<0){
+            //distance.innerHTML="REACHED"
+             timeinfo.innerHTML=0;
+        }
+      },11)     
+       
+       
+       }}     
+        
+  else if(val.value=="jupitar"){
+    light.style.animationName="speed";
+    speed.innerHTML ="LIGHT 300000 KM/ S";
+    light.style.animationDuration="2100s";
+    m.innerHTML="jupitar";
+    planet.style.background="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8vH-qfgNgcvpGQ4Hx6Wf9uwj6Ag5DJ9OXNA&usqp=CAU')";
+    planet.style.backgroundSize="cover";
+    point=3;
+      secpoint = 2100;
+    seco.innerHTML ="Takes 35m to reach";
+    name.innerHTML ="617730000 Km from earth"
+    if(point==3){
+       setInterval(()=>{
+         jupitar -= 2008;  
+          distance.innerHTML=jupitar+" KM NEED"; 
+    distinfo.innerHTML=jupitar +" KM HAVE"; 
+        
+       },1.2)
+       setInterval(()=>{
+          secpoint -=0.01;
+          timeinfo.innerHTML =secpoint.toFixed(1 ) + " S Left";
+          if(secpoint<0){
+            //distance.innerHTML="REACHED"
+             timeinfo.innerHTML=0;
+        }
+      },11)     
+       
+       
+       }}        
+
+ else if(val.value=="pluto"){
+    light.style.animationName="speed";
+    speed.innerHTML ="LIGHT 300000 KM/ S";
+    light.style.animationDuration="19800s";
+    m.innerHTML="pluto";
+    planet.style.background="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4ms0uXF7Lb-4wAYushiT37ISeRX9vxxY43oCUpPCgUlQ1WH4&s')";
+    planet.style.backgroundSize="cover";
+    point=3;
+      secpoint = 19800;
+    seco.innerHTML ="Takes 330m to reach";
+    name.innerHTML ="5720000000 Km from earth"
+    if(point==3){
+       setInterval(()=>{
+         pluto -= 2008;  
+          distance.innerHTML=pluto+" KM NEED "; 
+    distinfo.innerHTML=pluto +" KM HAVE"; 
+        
+       },1.2)
+       setInterval(()=>{
+          secpoint -=0.01;
+          timeinfo.innerHTML =secpoint.toFixed(1 ) + " S Left";
+          if(secpoint<0){
+            //distance.innerHTML="REACHED"
+             timeinfo.innerHTML=0;
+        }
+      },11)     
+       
+       
+       }}        
+       
+ else if(val.value=="sun"){
+    light.style.animationName="speed";
+    speed.innerHTML ="LIGHT 300000 KM/ S";
+    light.style.animationDuration="480s";
+    m.innerHTML="Sun";
+    planet.style.background="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7KGF8Mt1MMYncGvXW8E0mFjnOhV6wrlQCoQ&usqp=CAU')";
+    planet.style.backgroundSize="cover";
+    point=3;
+      secpoint = 480;
+    seco.innerHTML ="Takes 8m to reach";
+    name.innerHTML ="148550000 Km from earth"
+    if(point==3){
+       setInterval(()=>{
+         sun -= 2008;  
+          distance.innerHTML=sun+" KM NEED "; 
+    distinfo.innerHTML=sun +" KM HAVE"; 
+        
+       },1.2)
+       setInterval(()=>{
+          secpoint -=0.01;
+          timeinfo.innerHTML =secpoint.toFixed(1 ) + " S Left";
+          if(secpoint<0){
+            //distance.innerHTML="REACHED"
+             timeinfo.innerHTML=0;
+        }
+      },11)     
+       
+       
+       }}              
+       
+       
+ 
+ 
+ 
+    
+ }
+
+ invis.ondblclick=()=>{
+       reset.style.animation="linear 5s 1 anim" ;
+    reset.style.display="block";
+    setTimeout(()=>{
+        reset.style.display="none";
+    },5000)
+ }
+ reset.onclick=()=>{
+     location.reload();
+     
+ }
+ 
+}
+
+
+
+
+
+
+
+
+
+
+      </script>
+        
+    </body>
+</html>
+
+
+
